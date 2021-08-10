@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1628586561 source:d:\code\physics\src\matrix.cpp
+	"Matrix.h"
+
+1628586527 d:\code\physics\include\matrix.h
+
+1628585783 source:d:\code\physics\src\scalar.cpp
+	"Scalar.h"
+
+1628586763 d:\code\physics\include\scalar.h
+
