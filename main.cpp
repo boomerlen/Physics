@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "Scalar.h"
+#include "include/Scalar.h"
 
 
 int main() {
@@ -19,7 +19,7 @@ int main() {
 
     Scalar scalar3 = scalar1 + scalar2;
 
-    scalar3.print()
+    scalar3.print();
 
     return 0;
 }

@@ -7,8 +7,8 @@
 class Scalar
 {
     public:
-        Scalar(double a, double b = 0.0);
-        Scalar(int a, int b = 0);
+        Scalar(double a = 0.0, double b = 0.0);
+        Scalar(int a = 0, int b = 0);
         virtual ~Scalar();
 
         // Operators
@@ -25,13 +25,15 @@ class Scalar
         Scalar operator*(double);
 
         void operator=(const Scalar&);
+        void operator=(int[2]);
+        void operator=(double[2]);
         void operator=(int);
         void operator=(double);
 
 
         // Complex
-        double real();
-        double imag();
+        double real() const;
+        double imag() const;
         double abs();
         double argument();
         Scalar conj();
