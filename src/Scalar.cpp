@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "Scalar.h"
+#include "../include/Scalar.h"
 
 Scalar::Scalar(double a, double b)
 {
@@ -15,8 +15,8 @@ Scalar::Scalar(double a, double b)
 Scalar::Scalar(int a, int b)
 {
     //ctor
-    real_part = a;
-    imaginary_part = b;
+    real_part = double(a);
+    imaginary_part = double(b);
 }
 
 Scalar::Scalar(int a[2]) {
@@ -35,7 +35,7 @@ Scalar::~Scalar()
 }
 
 // Operators
-Scalar Scalar::operator+(const Scalar& s) {
+Scalar Scalar::operator+(const Scalar& s) const {
     double new_r = real_part + s.real();
     double new_i = imaginary_part + s.imag();
 
@@ -59,7 +59,7 @@ Scalar Scalar::operator+(double a) {
     return sum;
 }
 
-Scalar Scalar::operator-(const Scalar& s) {
+Scalar Scalar::operator-(const Scalar& s) const {
     double new_r = real_part - s.real();
     double new_i = imaginary_part - s.imag();
 
@@ -84,7 +84,7 @@ Scalar Scalar::operator-(double a) {
     return result;
 }
 
-Scalar Scalar::operator*(const Scalar& s) {
+Scalar Scalar::operator*(const Scalar& s) const {
     double new_r = (s.real() * real_part) - (s.imag() * imaginary_part);
     double new_i = (s.imag() * real_part) + (s.real() * imaginary_part);
 
@@ -142,12 +142,6 @@ double Scalar::imag() const {
     return imaginary_part;
 }
 
-double Scalar::abs() const {
-    double result = sqrt(real_part * real_part + imaginary_part * imaginary_part);
-
-    return result;
-}
-
 double Scalar::argument() const {
     return atan(imaginary_part / real_part);
 }
@@ -156,12 +150,21 @@ Scalar Scalar::conj() const {
     return Scalar(real_part, -1 * imaginary_part);
 }
 
+double Scalar::abs() const {
+    Scalar tmp = *this * this->conj();
+
+    double ret_val = sqrt(tmp.imag() + tmp.real());
+
+    return ret_val;
+}
+
 bool Scalar::purely_imaginary(double error) const {
     if ((imaginary_part <= error) && (imaginary_part >= (-1 * error))) {
         return true;
     }
     return false;
 }
+
 
 void Scalar::print() const {
     std::cout << real_part << " + " << imaginary_part << "i\n";

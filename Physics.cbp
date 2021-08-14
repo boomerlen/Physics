@@ -34,6 +34,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="include/Matrix.h" />
+<<<<<<< HEAD
 		<Unit filename="include/Scalar.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Matrix.cpp" />
@@ -43,5 +44,14 @@
 			<envvars />
 			<debugger />
 		</Extensions>
+=======
+		<Unit filename="include/PhysVector.h" />
+		<Unit filename="include/Scalar.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Matrix.cpp" />
+		<Unit filename="src/PhysVector.cpp" />
+		<Unit filename="src/Scalar.cpp" />
+		<Extensions />
+>>>>>>> 2e162ad444b48a8143ceaba039f265b41b3d1408
 	</Project>
 </CodeBlocks_project_file>

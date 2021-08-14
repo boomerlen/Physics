@@ -2,12 +2,35 @@
 1628586561 source:d:\code\physics\src\matrix.cpp
 	"Matrix.h"
 
-1628586527 d:\code\physics\include\matrix.h
+1628941595 d:\code\physics\include\matrix.h
+	"Scalar.h"
+	"PhysVector.h"
 
 1628941192 source:d:\code\physics\src\scalar.cpp
 	<cmath>
 	<iostream>
 	"Scalar.h"
 
-1628940858 d:\code\physics\include\scalar.h
+1628942118 d:\code\physics\include\scalar.h
+
+1628653948 source:e:\code\physics\physics\src\matrix.cpp
+	"Matrix.h"
+
+1628655108 source:e:\code\physics\physics\src\scalar.cpp
+	<cmath>
+	<iostream>
+	"../include/Scalar.h"
+
+1628654482 source:e:\code\physics\physics\main.cpp
+	<iostream>
+	"include/Scalar.h"
+
+1628655012 e:\code\physics\physics\include\scalar.h
+
+1628941595 d:\code\physics\include\physvector.h
+	"Scalar.h"
+
+1628941807 source:d:\code\physics\main.cpp
+	<iostream>
+	"include/Scalar.h"
 

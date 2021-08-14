@@ -16,15 +16,15 @@ class Scalar
         virtual ~Scalar();
 
         // Operators
-        Scalar operator+(const Scalar&);
+        Scalar operator+(const Scalar&) const;
         Scalar operator+(int);
         Scalar operator+(double);
 
-        Scalar operator-(const Scalar&);
+        Scalar operator-(const Scalar&) const;
         Scalar operator-(int);
         Scalar operator-(double);
 
-        Scalar operator*(const Scalar&);
+        Scalar operator*(const Scalar&) const;
         Scalar operator*(int);
         Scalar operator*(double);
 
