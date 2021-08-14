@@ -4,8 +4,10 @@
 
 1628586527 d:\code\physics\include\matrix.h
 
-1628585783 source:d:\code\physics\src\scalar.cpp
+1628941192 source:d:\code\physics\src\scalar.cpp
+	<cmath>
+	<iostream>
 	"Scalar.h"
 
-1628586763 d:\code\physics\include\scalar.h
+1628940858 d:\code\physics\include\scalar.h
 

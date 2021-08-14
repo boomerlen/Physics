@@ -9,6 +9,10 @@ class Scalar
     public:
         Scalar(double a, double b = 0.0);
         Scalar(int a, int b = 0);
+        // Less preferred but possible initialiser
+        Scalar(int a[2]);
+        Scalar(double a[2]);
+
         virtual ~Scalar();
 
         // Operators
@@ -25,20 +29,22 @@ class Scalar
         Scalar operator*(double);
 
         void operator=(const Scalar&);
+        void operator=(int[2]);
+        void operator=(double[2]);
         void operator=(int);
         void operator=(double);
 
 
         // Complex
-        double real();
-        double imag();
-        double abs();
-        double argument();
-        Scalar conj();
-        bool purely_imaginary(double error = 0.0);
+        double real() const;
+        double imag() const;
+        double abs() const;
+        double argument() const;
+        Scalar conj() const;
+        bool purely_imaginary(double error = 0.0) const;
 
         // Debug
-        void print();
+        void print() const;
     protected:
 
     private:

@@ -19,7 +19,13 @@ int main() {
 
     Scalar scalar3 = scalar1 + scalar2;
 
-    scalar3.print()
+    scalar3.print();
+
+    // Do some other cool stuff
+    std::cout << "With magnitude: " << scalar3.abs() << std::endl;
+    std::cout << "And conjugate: ";
+    scalar3.conj().print();
+    std::cout << "And argument: " << scalar3.argument() << std::endl;
 
     return 0;
 }
