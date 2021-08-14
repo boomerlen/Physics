@@ -10,27 +10,31 @@ class PhysVector
         PhysVector(int n, Scalar scalars[]);
         virtual ~PhysVector();
 
-        PhysVector operator+(const &PhysVector);
-        PhysVector operator-(const &PhysVector);
-        Scalar operator*(const &PhysVector);
-        PhysVector operator*(const &Scalar);
+        PhysVector operator+(const PhysVector&) const;
+        PhysVector operator-(const PhysVector&) const;
+        Scalar operator*(const PhysVector&) const;
+        PhysVector operator*(const Scalar&) const;
 
-        &Scalar operator[](int i);
-        const &Scalar operator[](int i) const;
+        // Array-like object access
+        Scalar& operator[](int i);
+        const Scalar& operator[](int i) const;
 
-        void operator=(const &PhysVector);
-        void operator=(const &Scalar[]);
-        void operator=(const &Scalar);
+        void operator=(const PhysVector&);
+        void operator=(const Scalar[]);
+        void operator=(const Scalar&);
 
         int dimension() const;
 
         void make_empty();
+
+        void print() const;
     protected:
 
     private:
         int dim;
 
         Scalar entries[];
+        bool uninitialised;
 };
 
 #endif // PHYSVECTOR_H

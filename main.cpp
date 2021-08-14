@@ -2,14 +2,15 @@
 
 // First goal of this is to make it easier to implement eigen calculations in 3D
 // i.e create ways of moving from 3D representations of coordinates to a 1D representation of a matrix
-
+// Actually first goal is to have a working basic linear algebra package
 
 #include <iostream>
 
 #include "include/Scalar.h"
+#include "include/PhysVector.h"
 
 
-int main() {
+void test_scalars() {
     // Do some scalar operations
     Scalar scalar1(1, 2);
     scalar1.print();
@@ -27,5 +28,30 @@ int main() {
     scalar3.conj().print();
     std::cout << "And argument: " << scalar3.argument() << std::endl;
 
+    return;
+}
+
+void test_vectors() {
+    std::cout << "Vectors" << std::endl;
+
+    PhysVector new_vec(2);
+    new_vec.print();
+
+    Scalar scalar1(1, 2);
+    Scalar scalar2(2, 0);
+
+    Scalar scalars[2] = {scalar1, scalar2};
+
+    new_vec = scalars;
+
+    new_vec.print();
+
+    return;
+}
+
+int main() {
+    test_scalars();
+
+    test_vectors();
     return 0;
 }

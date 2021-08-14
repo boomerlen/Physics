@@ -7,7 +7,7 @@
 class Scalar
 {
     public:
-        Scalar(double a, double b = 0.0);
+        Scalar(double a = 0.0, double b = 0.0);
         Scalar(int a, int b = 0);
         // Less preferred but possible initialiser
         Scalar(int a[2]);

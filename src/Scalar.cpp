@@ -167,6 +167,6 @@ bool Scalar::purely_imaginary(double error) const {
 
 
 void Scalar::print() const {
-    std::cout << real_part << " + " << imaginary_part << "i\n";
+    std::cout << real_part << " + " << imaginary_part << "i";
     return;
 }
