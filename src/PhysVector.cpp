@@ -99,7 +99,7 @@ void PhysVector::operator=(const Scalar vec[]) {
     // Copies first dim entries only
     for (int i = 0; i < dim; i++) {
         entries.push_back(vec[i]);
-        entries.erase(i);
+        entries.erase(entries.begin());
     }
 
     uninitialised = false;

@@ -40,16 +40,8 @@ void test_vectors() {
     Scalar scalar1(1, 2);
     Scalar scalar2(2, 0);
 
-    Scalar scalars[2] = {scalar1, scalar2};
-
-    std::cout << "Scalars: ";
-    scalar1.print();
-    std::cout << std::endl;
-    scalar2.print();
-
-    new_vec = scalars;
-
-    std::cout << "line 52";
+    new_vec[0] = scalar1;
+    new_vec[1] = scalar2;
 
     new_vec.print();
 
