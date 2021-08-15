@@ -97,9 +97,9 @@ void PhysVector::operator=(const PhysVector& vec) {
 // TODO: Throw an exception or something if the vec is too small
 void PhysVector::operator=(const Scalar vec[]) {
     // Copies first dim entries only
-    for (auto it = entries.begin(); it != entries.end(); ++it) {
-        entries.insert(it, vec[std::distance(entries.begin(), it)]);
-        entries.erase(dim + it);
+    for (int i = 0; i < dim; i++) {
+        entries.push_back(vec[i]);
+        entries.erase(i);
     }
 
     uninitialised = false;
