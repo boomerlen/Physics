@@ -1,6 +1,8 @@
 #ifndef PHYSVECTOR_H
 #define PHYSVECTOR_H
 
+#include <vector>
+
 #include "Scalar.h"
 
 class PhysVector
@@ -32,9 +34,9 @@ class PhysVector
 
     private:
         int dim;
-
-        Scalar entries[];
         bool uninitialised;
+
+        std::vector<Scalar> entries;
 };
 
 #endif // PHYSVECTOR_H
