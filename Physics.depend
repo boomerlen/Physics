@@ -6,12 +6,12 @@
 	"Scalar.h"
 	"PhysVector.h"
 
-1628943934 source:d:\code\physics\src\scalar.cpp
+1629194046 source:d:\code\physics\src\scalar.cpp
 	<cmath>
 	<iostream>
 	"../include/Scalar.h"
 
-1628943104 d:\code\physics\include\scalar.h
+1629194046 d:\code\physics\include\scalar.h
 
 1628653948 source:e:\code\physics\physics\src\matrix.cpp
 	"Matrix.h"
@@ -28,15 +28,16 @@
 
 1629021098 e:\code\physics\physics\include\scalar.h
 
-1628943677 d:\code\physics\include\physvector.h
+1629194046 d:\code\physics\include\physvector.h
+	<vector>
 	"Scalar.h"
 
-1628943960 source:d:\code\physics\main.cpp
+1629287526 source:d:\code\physics\main.cpp
 	<iostream>
 	"include/Scalar.h"
 	"include/PhysVector.h"
 
-1628943940 source:d:\code\physics\src\physvector.cpp
+1629194046 source:d:\code\physics\src\physvector.cpp
 	<iostream>
 	"PhysVector.h"
 	"Scalar.h"

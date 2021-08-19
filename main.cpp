@@ -34,16 +34,28 @@ void test_scalars() {
 void test_vectors() {
     std::cout << "Vectors" << std::endl;
 
-    PhysVector new_vec(2);
-    new_vec.print();
+    // Make some scalars
+    Scalar scalars1[2];
+    scalars1[0] = Scalar(1, 2);
+    scalars1[1] = Scalar{2, 0};
 
-    Scalar scalar1(1, 2);
-    Scalar scalar2(2, 0);
+    std::cout << "Scalar 1 defined" << std::endl;
 
-    new_vec[0] = scalar1;
-    new_vec[1] = scalar2;
+    Scalar scalars2[2];
+    scalars2[0] = Scalar(3, 4);
+    scalars2[1] = Scalar(0, 2);
 
-    new_vec.print();
+    std::cout << "Scalar 2 defined" << std::endl;
+
+    PhysVector vec1(2, scalars1);
+    PhysVector vec2(2, scalars2);
+
+    std::cout << "Vectors 1 and 2 defined" << std::endl;
+
+    PhysVector vec3(2);
+    vec3 = vec1 + vec2;
+
+    vec3.print();
 
     return;
 }
