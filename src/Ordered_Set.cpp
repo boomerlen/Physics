@@ -1,7 +1,7 @@
 #include "Ordered_Set.h"
 
 // Constructor
-template <typename T>
+template <class T>
 Ordered_Set<T>::Ordered_Set(int n)
 {
     //ctor
@@ -22,7 +22,7 @@ Ordered_Set<T>::Ordered_Set(int n)
 }
 
 // Constructor with values
-template <typename T>
+template <class T>
 Ordered_Set<T>::Ordered_Set(int n, T entries[]) {
     // Very similar but entries are filled not just created.
     dim = n;
@@ -44,7 +44,7 @@ Ordered_Set<T>::Ordered_Set(int n, T entries[]) {
 }
 
 // Destructor (deletes the linked list)
-template <typename T>
+template <class T>
 Ordered_Set<T>::~Ordered_Set()
 {
     // Delete the list
@@ -61,7 +61,7 @@ Ordered_Set<T>::~Ordered_Set()
 // Element access methods
 
 // Get the nth element (counting from 0)
-template <typename T>
+template <class T>
 T Ordered_Set<T>::x(int n) const {
     if (n >= dim) {
         // Should chuck an exception
@@ -78,7 +78,7 @@ T Ordered_Set<T>::x(int n) const {
 }
 
 // Edit the nth element
-template <typename T>
+template <class T>
 void Ordered_Set<T>::x(int n, T d) {
     // Get to desired element
     if (n >= dim) {
@@ -94,29 +94,29 @@ void Ordered_Set<T>::x(int n, T d) {
 }
 
 // y = (n = 1)
-template <typename T>
+template <class T>
 void Ordered_Set<T>::y(T d) {
     x(1, d);
 }
 
-template <typename T>
+template <class T>
 T Ordered_Set<T>::y() const {
     return x(1);
 }
 
 // z = (n = 2)
-template <typename T>
+template <class T>
 void Ordered_Set<T>::z(T d) {
     x(2, d);
 }
 
-template <typename T>
+template <class T>
 T Ordered_Set<T>::z() const {
     return x(2);
 }
 
 // Operators
-template <typename T>
+template <class T>
 void Ordered_Set<T>::operator=(const Ordered_Set& s) {
     // Ensure dimensions match
     if (dim != s.dimension()) {
@@ -133,7 +133,7 @@ void Ordered_Set<T>::operator=(const Ordered_Set& s) {
     }
 }
 
-template <typename T>
+template <class T>
 void Ordered_Set<T>::operator=(const T d) {
     // Iterate through
     Node_T<T> *current_node = head;
@@ -144,7 +144,7 @@ void Ordered_Set<T>::operator=(const T d) {
     }
 }
 
-template <typename T>
+template <class T>
 int Ordered_Set<T>::dimension() const {
     return dim;
 }

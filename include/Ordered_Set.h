@@ -7,7 +7,7 @@
 // Note that element assignment must be done with x() not with operator[]
 #include "Node_T.h"
 
-template <typename T>
+template <class T>
 class Ordered_Set
 {
     public:

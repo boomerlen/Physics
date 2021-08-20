@@ -1,7 +1,7 @@
 #ifndef NODE_T_H
 #define NODE_T_H
 
-template <typename T>
+template <class T>
 class Node_T
 {
     public:

@@ -1,6 +1,6 @@
 #include "Node_T.h"
 
-template <typename T>
+template <class T>
 Node_T<T>::Node_T()
 {
     next = nullptr;
@@ -8,7 +8,7 @@ Node_T<T>::Node_T()
 }
 
 // Should throw an exception if it still points to something
-template <typename T>
+template <class T>
 Node_T<T>::~Node_T()
 {
     //dtor
@@ -19,13 +19,13 @@ Node_T<T>::~Node_T()
     }
 }
 
-template <typename T>
+template <class T>
 void Node_T<T>::set_data(T d) {
     data = d;
     initialised = true;
 }
 
-template <typename T>
+template <class T>
 T Node_T<T>::get_data() {
     return data;
 }
