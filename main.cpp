@@ -8,8 +8,9 @@
 
 #include "include/Scalar.h"
 #include "include/PhysVector.h"
+#include "include/Ordered_Set.h"
 
-
+/*
 void test_scalars() {
     // Do some scalar operations
     Scalar scalar1(1, 2);
@@ -30,7 +31,9 @@ void test_scalars() {
 
     return;
 }
+*/
 
+/*
 void test_vectors() {
     std::cout << "Vectors" << std::endl;
 
@@ -59,10 +62,37 @@ void test_vectors() {
 
     return;
 }
+*/
+
+void test_sets() {
+    Ordered_Set<int> s1(4);
+
+    int ints[4] = {1, 2, 3, 4};
+    Ordered_Set<int> s2(4, ints);
+
+    s1.x(1, 200);
+    std::cout << s1.x(1) << std::endl;
+
+    s1 = s2;
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << s1.x(i) << std::endl;
+    }
+
+    s1 = 10;
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << s1.x(i) << std::endl;
+    }
+
+    std::cout << "Dimesions: " << s1.dimension() << std::endl;
+}
 
 int main() {
-    test_scalars();
+    // test_scalars();
 
-    test_vectors();
+    // test_vectors();
+
+    test_sets();
     return 0;
 }
