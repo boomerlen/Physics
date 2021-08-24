@@ -17,7 +17,7 @@ PhysVector::PhysVector(int n, Scalar scalars[]) {
     dim = n;
 
     for (int i = 0; i < n; i++) {
-        entries[i] = scalars[i];
+        entries.push_back(scalars[i]);
     }
 
     uninitialised = false;
@@ -38,7 +38,7 @@ PhysVector PhysVector::operator+(const PhysVector& vec) const {
 
     // add element-wise
     for (int i = 0; i < dim; i++) {
-        new_vec[i] = entries[i] + vec[i];
+        new_vec.entries.push_back(entries[i] + vec[i]);
     }
 
     return new_vec;
@@ -54,7 +54,7 @@ PhysVector PhysVector::operator-(const PhysVector& vec) const {
 
     // add element-wise
     for (int i = 0; i < dim; i++) {
-        new_vec[i] = entries[i] - vec[i];
+        new_vec.entries.push_back(entries[i] - vec[i]);
     }
 
     return new_vec;
@@ -63,21 +63,21 @@ PhysVector PhysVector::operator-(const PhysVector& vec) const {
 Scalar PhysVector::operator*(const PhysVector& vec) const {
     // Forget if I care about dimension
 
-    Scalar result;
+    Scalar result = (0.0, 0.0);
 
     for (int i = 0; i < dim; i++) {
-        result = result + (vec[i] * entries[i]);
+        result = result + (vec[i] * entries.at(i));
     }
 
     return result;
 }
 
 Scalar &PhysVector::operator[](int i) {
-    return entries[i];
+    return entries.at(i);
 }
 
 const Scalar &PhysVector::operator[](int i) const {
-    return entries[i];
+    return entries.at(i);
 }
 
 void PhysVector::operator=(const PhysVector& vec) {
@@ -86,8 +86,10 @@ void PhysVector::operator=(const PhysVector& vec) {
         return;
     }
 
+    entries.clear();
+
     for (int i = 0; i < dim; i++) {
-        entries[i] = vec[i];
+        entries.push_back(vec[i]);
     }
 
     uninitialised = false;
@@ -97,16 +99,19 @@ void PhysVector::operator=(const PhysVector& vec) {
 // TODO: Throw an exception or something if the vec is too small
 void PhysVector::operator=(const Scalar vec[]) {
     // Copies first dim entries only
+    entries.clear();
     for (int i = 0; i < dim; i++) {
-        entries[i] = vec[i];
+        entries.push_back(vec[i]);
     }
 
     uninitialised = false;
     return;
 }
+
 void PhysVector::operator=(const Scalar& scalar) {
+    entries.clear();
     for (int i = 0; i < dim; i++) {
-        entries[i] = scalar;
+        entries.push_back(scalar);
     }
 
     uninitialised = false;
@@ -121,8 +126,9 @@ void PhysVector::make_empty() {
     // puts 0 in every entry
     Scalar zero(0, 0);
 
+    entries.clear();
     for (int i = 0; i < dim; i++) {
-        entries[i] = zero;
+        entries.push_back(zero);
     }
 
     uninitialised = false;
@@ -135,14 +141,16 @@ void PhysVector::print() const {
         return;
     }
 
-    std::cout << "(";
+    std::cout << "[";
 
     for (int i = 0; i < dim; i++) {
-        entries[i].print();
-        std::cout << ", ";
+        entries.at(i).print();
+        if (i != (dim - 1)) {
+            std::cout << ", ";
+        }
     }
 
-    std::cout << ")";
+    std::cout << "]";
 
     return;
 }

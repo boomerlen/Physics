@@ -15,6 +15,9 @@
 					<Add option="-g" />
 					<Add directory="include" />
 				</Compiler>
+				<Linker>
+					<Add directory="obj/Debug/src" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/Physics" prefix_auto="1" extension_auto="1" />
@@ -34,24 +37,25 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="include/Matrix.h" />
-<<<<<<< HEAD
-		<Unit filename="include/Scalar.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="src/Matrix.cpp" />
-		<Unit filename="src/Scalar.cpp" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
-=======
+		<Unit filename="include/Node_T.h" />
+		<Unit filename="include/Ordered_Set.h" />
 		<Unit filename="include/PhysVector.h" />
 		<Unit filename="include/Scalar.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/Matrix.cpp" />
-		<Unit filename="src/PhysVector.cpp" />
-		<Unit filename="src/Scalar.cpp" />
+		<Unit filename="src/Matrix.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/Node_T.cpp" />
+		<Unit filename="src/Ordered_Set.cpp" />
+		<Unit filename="src/PhysVector.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/Scalar.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
 		<Extensions />
->>>>>>> 2e162ad444b48a8143ceaba039f265b41b3d1408
 	</Project>
 </CodeBlocks_project_file>
