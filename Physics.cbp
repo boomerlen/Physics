@@ -37,8 +37,12 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="include/Matrix.h" />
-		<Unit filename="include/Node_T.h" />
-		<Unit filename="include/Ordered_Set.h" />
+		<Unit filename="include/Node_T.h">
+			<Option compile="1" />
+		</Unit>
+		<Unit filename="include/Ordered_Set.h">
+			<Option compile="1" />
+		</Unit>
 		<Unit filename="include/PhysVector.h" />
 		<Unit filename="include/Scalar.h" />
 		<Unit filename="main.cpp" />
@@ -46,8 +50,14 @@
 			<Option compile="0" />
 			<Option link="0" />
 		</Unit>
-		<Unit filename="src/Node_T.cpp" />
-		<Unit filename="src/Ordered_Set.cpp" />
+		<Unit filename="src/Node_T.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="src/Ordered_Set.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
 		<Unit filename="src/PhysVector.cpp">
 			<Option compile="0" />
 			<Option link="0" />
