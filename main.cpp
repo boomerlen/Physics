@@ -35,7 +35,7 @@ void test_scalars() {
 }
 */
 
-/*
+
 void test_vectors() {
     std::cout << "Vectors" << std::endl;
 
@@ -59,12 +59,16 @@ void test_vectors() {
 
     PhysVector vec3(2);
     vec3 = vec1 + vec2;
-
+    vec1.print();
+    std::cout << " + ";
+    vec2.print();
+    std::cout << " = ";
     vec3.print();
+    std::cout << std::endl;
 
     return;
 }
-*/
+
 
 /*
 void test_sets() {
@@ -102,7 +106,7 @@ void test_sets() {
 int main() {
     // test_scalars();
 
-    // test_vectors();
+    test_vectors();
 
     // test_sets();
 

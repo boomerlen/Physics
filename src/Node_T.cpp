@@ -7,7 +7,7 @@
 
 #include "Node_T.h"
 //#include "PhysExcept.h"
-//#include "Scalar.h"
+#include "Scalar.h"
 
 template <class T>
 Node_T<T>::Node_T()
@@ -48,4 +48,4 @@ bool Node_T<T>::check_init() const {
 
 // Instantisations
 template class Node_T<int>;
-//template class Node_T<Scalar>;
+template class Node_T<Scalar>;

@@ -1,6 +1,14 @@
+// PhysVector.cpp
+//
+// Implementation of the PhysVector type
+// A general complex-valued vector of dimension n
+//
+// Hugo Sebesta 2021
+
 #include <iostream>
 
 #include "PhysVector.h"
+#include "Ordered_Set.h"
 #include "Scalar.h"
 
 PhysVector::PhysVector(int n)
@@ -8,7 +16,9 @@ PhysVector::PhysVector(int n)
     //ctor
     dim = n;
 
-    uninitialised = true;
+    entries = new Ordered_Set<Scalar>(n);
+
+    initialised = false;
 }
 
 PhysVector::PhysVector(int n, Scalar scalars[]) {
@@ -16,11 +26,11 @@ PhysVector::PhysVector(int n, Scalar scalars[]) {
     // Conversion from array to PhysVector
     dim = n;
 
-    for (int i = 0; i < n; i++) {
-        entries.push_back(scalars[i]);
-    }
+    entries = new Ordered_Set<Scalar>(dim, scalars);
 
-    uninitialised = false;
+    // TODO: Complain if scalars is not a full array
+
+    initialised = true;
 }
 
 PhysVector::~PhysVector()
@@ -38,7 +48,8 @@ PhysVector PhysVector::operator+(const PhysVector& vec) const {
 
     // add element-wise
     for (int i = 0; i < dim; i++) {
-        new_vec.entries.push_back(entries[i] + vec[i]);
+        Scalar new_s = entries->x(i) + vec.x(i);
+        new_vec.x(i, new_s);
     }
 
     return new_vec;
@@ -54,7 +65,8 @@ PhysVector PhysVector::operator-(const PhysVector& vec) const {
 
     // add element-wise
     for (int i = 0; i < dim; i++) {
-        new_vec.entries.push_back(entries[i] - vec[i]);
+        Scalar new_s = entries->x(i) - vec.x(i);
+        new_vec.x(i, new_s);
     }
 
     return new_vec;
@@ -63,58 +75,56 @@ PhysVector PhysVector::operator-(const PhysVector& vec) const {
 Scalar PhysVector::operator*(const PhysVector& vec) const {
     // Forget if I care about dimension
 
-    Scalar result = (0.0, 0.0);
+    Scalar result;
 
     for (int i = 0; i < dim; i++) {
-        result = result + (vec[i] * entries.at(i));
+        result = result + (vec.x(i) * entries->x(i));
     }
 
     return result;
 }
 
-Scalar &PhysVector::operator[](int i) {
-    return entries.at(i);
+Scalar PhysVector::x(int i) const {
+    return entries->x(i);
 }
 
-const Scalar &PhysVector::operator[](int i) const {
-    return entries.at(i);
+void PhysVector::x(int i, Scalar s) {
+    entries->x(i, s);
+    return;
 }
 
 void PhysVector::operator=(const PhysVector& vec) {
     if (vec.dimension() != dim) {
         // no
+        // TODO: chuck an exception
         return;
     }
 
-    entries.clear();
-
     for (int i = 0; i < dim; i++) {
-        entries.push_back(vec[i]);
+        entries->x(i, vec.x(i));
     }
 
-    uninitialised = false;
+    initialised = true;
     return;
 }
 
 // TODO: Throw an exception or something if the vec is too small
 void PhysVector::operator=(const Scalar vec[]) {
     // Copies first dim entries only
-    entries.clear();
     for (int i = 0; i < dim; i++) {
-        entries.push_back(vec[i]);
+        entries->x(i, vec[i]);
     }
 
-    uninitialised = false;
+    initialised = true;
     return;
 }
 
 void PhysVector::operator=(const Scalar& scalar) {
-    entries.clear();
     for (int i = 0; i < dim; i++) {
-        entries.push_back(scalar);
+        entries->x(i, scalar);
     }
 
-    uninitialised = false;
+    initialised = true;
     return;
 }
 
@@ -126,17 +136,16 @@ void PhysVector::make_empty() {
     // puts 0 in every entry
     Scalar zero(0, 0);
 
-    entries.clear();
     for (int i = 0; i < dim; i++) {
-        entries.push_back(zero);
+        entries->x(i, zero);
     }
 
-    uninitialised = false;
+    initialised = true;
     return;
 }
 
 void PhysVector::print() const {
-    if (uninitialised) {
+    if (!initialised) {
         std::cout << "(empty vector)\n";
         return;
     }
@@ -144,7 +153,7 @@ void PhysVector::print() const {
     std::cout << "[";
 
     for (int i = 0; i < dim; i++) {
-        entries.at(i).print();
+        entries->x(i).print();
         if (i != (dim - 1)) {
             std::cout << ", ";
         }

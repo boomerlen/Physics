@@ -6,6 +6,7 @@
 // Hugo Sebesta 2021
 
 #include "Ordered_Set.h"
+#include "Scalar.h"
 //#include "PhysExcept.h"
 
 #include <iostream>
@@ -191,3 +192,4 @@ bool Ordered_Set<T>::initialised() const {
 
 // Instantisations
 template class Ordered_Set<int>;
+template class Ordered_Set<Scalar>;
