@@ -1,10 +1,25 @@
+// Matrix.h
+//
 // Generic matrix with generic operations
+// Probably will be rather complicated in the end lol
+//
+// Hugo Sebesta 2021
 
 #ifndef MATRIX_H
 #define MATRIX_H
 
 #include "Scalar.h"
 #include "PhysVector.h"
+
+struct Algebraic_Op {
+    int row;
+    Scalar scalar;
+};
+
+struct Row_Operation {
+    int outrow;
+    struct Algebraic_Op operations[];
+};
 
 class Matrix
 {
@@ -30,6 +45,7 @@ class Matrix
 
         // More complicated matrix operations
         void eigensolve();
+        void row_operation(struct Row_Operation row_op);
 
         void print();
 
