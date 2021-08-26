@@ -11,9 +11,12 @@ class Node_T
         virtual ~Node_T();
 
         void set_data(T);
-        T get_data();
+        T get_data() const;
 
         Node_T *next;
+
+        // safety
+        bool check_init() const;
 
     private:
         bool initialised;
@@ -23,34 +26,3 @@ class Node_T
 #endif // NODE_T_H
 
 // Implementations
-
-template <class T>
-Node_T<T>::Node_T()
-{
-    next = nullptr;
-    initialised = false;
-}
-
-// Should throw an exception if it still points to something
-template <class T>
-Node_T<T>::~Node_T()
-{
-    //dtor
-    if (next != nullptr) {
-        // problem
-        // TODO finish this
-        // This should throw an exception
-    }
-}
-
-template <class T>
-void Node_T<T>::set_data(T d) {
-    std::cout << "setting data in NOde_T.h" << std::endl;
-    data = d;
-    initialised = true;
-}
-
-template <class T>
-T Node_T<T>::get_data() {
-    return data;
-}

@@ -1,3 +1,7 @@
+// This file currently does not need to be compiled
+// Since this is the implementation of a template class, this has been appended to the end of Ordered_Set.h
+// Simply compiling and including the header is therefore enough.
+
 #include "Ordered_Set.h"
 
 // Constructor
@@ -9,7 +13,7 @@ Ordered_Set<T>::Ordered_Set(int n)
 
     // Create the list of this length
     Node_T<T> *list_head = new Node_T<T>;
-    Node_T<T> *current_node = head;
+    Node_T<T> *current_node = list_head;
 
     for (int i = 0; i < n; i++) {
         Node_T<T> *new_node = new Node_T<T>;
@@ -121,14 +125,21 @@ void Ordered_Set<T>::operator=(const Ordered_Set& s) {
     // Ensure dimensions match
     if (dim != s.dimension()) {
         // Should chuck some sort of exception
+        std::cout << "error not same dimensions" << std::endl;
+    }
+
+    // Check that s is initialised
+    if (!s.initialised()) {
+        std::cout << "error, not initialised" << std::endl;
     }
 
     // Copy values
     Node_T<T> *current_node = head;
 
     for (int i = 0; i < dim; i++) {
+        std::cout << "about to set " << i << "th data to" << s.x(i) << std::endl;
         current_node->set_data(s.x(i));
-
+        std::cout << "set the " << i << "th data" << std::endl;
         current_node = current_node->next;
     }
 }
@@ -149,4 +160,22 @@ int Ordered_Set<T>::dimension() const {
     return dim;
 }
 
+template <class T>
+bool Ordered_Set<T>::initialised() const {
+    // Check each node element is initialised
+    Node_T<T> *current_node = head;
 
+    while (current_node != nullptr) {
+        if (!current_node->check_init()) {
+            return false;
+        }
+
+        current_node = current_node->next;
+    }
+
+    return true;
+}
+
+
+// Instantisations
+template class Ordered_Set<int>;

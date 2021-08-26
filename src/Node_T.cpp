@@ -1,4 +1,8 @@
+// Important bit is that this contains not just implementations but also the instantisations of the template type
+
+
 #include "Node_T.h"
+//#include "Scalar.h"
 
 template <class T>
 Node_T<T>::Node_T()
@@ -21,11 +25,23 @@ Node_T<T>::~Node_T()
 
 template <class T>
 void Node_T<T>::set_data(T d) {
+    std::cout << "setting data in NOde_T.h" << std::endl;
     data = d;
     initialised = true;
 }
 
 template <class T>
-T Node_T<T>::get_data() {
+T Node_T<T>::get_data() const {
     return data;
 }
+
+template <class T>
+bool Node_T<T>::check_init() const {
+    return initialised;
+}
+
+
+
+// Instantisations
+template class Node_T<int>;
+//template class Node_T<Scalar>;
