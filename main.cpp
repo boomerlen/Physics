@@ -6,9 +6,9 @@
 
 #include <iostream>
 
-#include "include/Scalar.h"
-#include "include/PhysVector.h"
-#include "include/Ordered_Set.h"
+#include "Scalar.h"
+#include "PhysVector.h"
+#include "Ordered_Set.h"
 
 /*
 void test_scalars() {
@@ -65,16 +65,21 @@ void test_vectors() {
 */
 
 void test_sets() {
+    std::cout << "Calling test_Sets" << std::endl;
     Ordered_Set<int> s1(4);
+
+    std::cout << "71" << std::endl;
 
     int ints[4] = {1, 2, 3, 4};
     Ordered_Set<int> s2(4, ints);
+
+    std::cout << "76" << std::endl;
 
     s1.x(1, 200);
     std::cout << s1.x(1) << std::endl;
 
     s1 = s2;
-
+    std::cout << "82" << std::endl;
     for (int i = 0; i < 4; i++) {
         std::cout << s1.x(i) << std::endl;
     }
