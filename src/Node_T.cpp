@@ -6,7 +6,7 @@
 // Hugo Sebesta 2021
 
 #include "Node_T.h"
-#include "PhysExcept.h"
+//#include "PhysExcept.h"
 //#include "Scalar.h"
 
 template <class T>
@@ -21,10 +21,11 @@ template <class T>
 Node_T<T>::~Node_T()
 {
     //dtor
-    if (next != nullptr) {
+
+    /* if (next != nullptr) {
         List_Memleak_Warning ex;
         throw ex;
-    }
+    } */
 }
 
 template <class T>

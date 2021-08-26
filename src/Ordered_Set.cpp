@@ -6,7 +6,7 @@
 // Hugo Sebesta 2021
 
 #include "Ordered_Set.h"
-#include "PhysExcept.h"
+//#include "PhysExcept.h"
 
 #include <iostream>
 
@@ -66,12 +66,12 @@ Ordered_Set<T>::~Ordered_Set()
     Node_T<T> *current_node = head;
     for (int i = 0; i < dim; i++) {
         Node_T<T> *next_node = current_node->next;
-        try {
-            delete current_node;
-        }
+
+        delete current_node;
+        /*} this is buggy
         catch (exception& e) {
             std::cout << e.what() << std::endl;
-        }
+        }*/
         current_node = next_node;
     }
 }

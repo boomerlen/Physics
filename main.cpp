@@ -10,6 +10,8 @@
 #include "PhysVector.h"
 #include "Ordered_Set.h"
 
+#include "Numerical.h"
+
 /*
 void test_scalars() {
     // Do some scalar operations
@@ -64,6 +66,7 @@ void test_vectors() {
 }
 */
 
+/*
 void test_sets() {
     std::cout << "Calling test_Sets" << std::endl;
     Ordered_Set<int> s1(4);
@@ -94,13 +97,15 @@ void test_sets() {
     }
 
     std::cout << "Dimesions: " << s1.dimension() << std::endl;
-}
+} */
 
 int main() {
     // test_scalars();
 
     // test_vectors();
 
-    test_sets();
+    // test_sets();
+
+    std::cout << "Integral of sinx from 0 to pi: " << num_integral_sinx(0.0, 3.14159, 0.001) << std::endl;
     return 0;
 }
