@@ -1,12 +1,15 @@
+// Ordered_Set.h
+//
+// Underlying data structure for storing scalars (or something else) in vectors, matrices etc
+// Implemented as a linked list
+//
+// Hugo Sebesta 2021
+
 #ifndef ORDERED_SET_H
 #define ORDERED_SET_H
 
-// Used to store Scalars in a vector or columns (vectors) in a matrix
-// Implemented as a linked list
-
 // Note that element assignment must be done with x() not with operator[]
 #include "Node_T.h"
-#include <iostream>
 
 template <class T>
 class Ordered_Set
@@ -46,5 +49,3 @@ class Ordered_Set
 };
 
 #endif // ORDERED_SET_H
-
-// Implementations

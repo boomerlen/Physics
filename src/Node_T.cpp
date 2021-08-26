@@ -1,7 +1,12 @@
-// Important bit is that this contains not just implementations but also the instantisations of the template type
-
+// Node_T.cpp
+//
+// Linked list - underlying data structure for an Ordered_Set
+// Contains basic node methods
+//
+// Hugo Sebesta 2021
 
 #include "Node_T.h"
+#include "PhysExcept.h"
 //#include "Scalar.h"
 
 template <class T>
@@ -17,15 +22,13 @@ Node_T<T>::~Node_T()
 {
     //dtor
     if (next != nullptr) {
-        // problem
-        // TODO finish this
-        // This should throw an exception
+        List_Memleak_Warning ex;
+        throw ex;
     }
 }
 
 template <class T>
 void Node_T<T>::set_data(T d) {
-    std::cout << "setting data in NOde_T.h" << std::endl;
     data = d;
     initialised = true;
 }

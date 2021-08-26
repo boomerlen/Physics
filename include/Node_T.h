@@ -1,3 +1,11 @@
+// Node_T.h
+//
+// Header file for Node_T datatype
+// Nodes for use in a linked list
+// Templated type, implementation file contains the instantisations
+//
+// Hugo Sebesta 2021
+
 #ifndef NODE_T_H
 #define NODE_T_H
 
@@ -24,5 +32,3 @@ class Node_T
 };
 
 #endif // NODE_T_H
-
-// Implementations

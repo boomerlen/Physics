@@ -1,8 +1,14 @@
-// This file currently does not need to be compiled
-// Since this is the implementation of a template class, this has been appended to the end of Ordered_Set.h
-// Simply compiling and including the header is therefore enough.
+// Ordered_Set.cpp
+//
+// Implements the ordered_set class
+// Used as an underlying container for vectors
+//
+// Hugo Sebesta 2021
 
 #include "Ordered_Set.h"
+#include "PhysExcept.h"
+
+#include <iostream>
 
 // Constructor
 template <class T>
@@ -15,7 +21,7 @@ Ordered_Set<T>::Ordered_Set(int n)
     Node_T<T> *list_head = new Node_T<T>;
     Node_T<T> *current_node = list_head;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < (n - 1); i++) {
         Node_T<T> *new_node = new Node_T<T>;
         current_node->next = new_node;
 
@@ -33,16 +39,20 @@ Ordered_Set<T>::Ordered_Set(int n, T entries[]) {
 
     // Create the list of this length
     Node_T<T> *list_head = new Node_T<T>;
-    Node_T<T> *current_node = head;
+    Node_T<T> *current_node = list_head;
+    Node_T<T> *prev_node = current_node;
 
     for (int i = 0; i < n; i++) {
-        // Create and fill
+        current_node->set_data(entries[i]);
         Node_T<T> *new_node = new Node_T<T>;
-        new_node->set_data(entries[i]);
 
         current_node->next = new_node;
+        prev_node = current_node;
         current_node = new_node;
     }
+
+    delete current_node;
+    prev_node->next = nullptr;
 
     head = list_head;
 }
@@ -56,8 +66,12 @@ Ordered_Set<T>::~Ordered_Set()
     Node_T<T> *current_node = head;
     for (int i = 0; i < dim; i++) {
         Node_T<T> *next_node = current_node->next;
-        delete current_node; // This will throw an exception when configured properly
-
+        try {
+            delete current_node;
+        }
+        catch (exception& e) {
+            std::cout << e.what() << std::endl;
+        }
         current_node = next_node;
     }
 }
@@ -73,7 +87,7 @@ T Ordered_Set<T>::x(int n) const {
 
     // Iterate
     Node_T<T> *current_node = head;
-    for (int i = 0; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
         current_node = current_node->next;
     }
 
@@ -90,7 +104,7 @@ void Ordered_Set<T>::x(int n, T d) {
     }
 
     Node_T<T> *current_node = head;
-    for (int i = 0; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
         current_node = current_node->next;
     }
 
@@ -137,9 +151,7 @@ void Ordered_Set<T>::operator=(const Ordered_Set& s) {
     Node_T<T> *current_node = head;
 
     for (int i = 0; i < dim; i++) {
-        std::cout << "about to set " << i << "th data to" << s.x(i) << std::endl;
         current_node->set_data(s.x(i));
-        std::cout << "set the " << i << "th data" << std::endl;
         current_node = current_node->next;
     }
 }
@@ -166,7 +178,7 @@ bool Ordered_Set<T>::initialised() const {
     Node_T<T> *current_node = head;
 
     while (current_node != nullptr) {
-        if (!current_node->check_init()) {
+        if (current_node->check_init() == false) {
             return false;
         }
 

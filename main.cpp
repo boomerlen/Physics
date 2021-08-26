@@ -72,6 +72,9 @@ void test_sets() {
 
     int ints[4] = {1, 2, 3, 4};
     Ordered_Set<int> s2(4, ints);
+    for (int i = 0; i < 4; i++) {
+        std::cout << "s2: " << i << "th entry: " << s2.x(i) << std::endl;
+    }
 
     std::cout << "76" << std::endl;
 
@@ -83,7 +86,7 @@ void test_sets() {
     for (int i = 0; i < 4; i++) {
         std::cout << s1.x(i) << std::endl;
     }
-
+    std::cout << "89" << std::endl;
     s1 = 10;
 
     for (int i = 0; i < 4; i++) {
