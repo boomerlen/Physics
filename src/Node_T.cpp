@@ -6,7 +6,7 @@
 // Hugo Sebesta 2021
 
 #include "Node_T.h"
-//#include "PhysExcept.h"
+#include "PhysExcept.h"
 #include "Scalar.h"
 
 template <class T>
@@ -21,11 +21,12 @@ template <class T>
 Node_T<T>::~Node_T()
 {
     //dtor
-
-    /* if (next != nullptr) {
-        List_Memleak_Warning ex;
-        throw ex;
-    } */
+    if (next != nullptr) {
+        // Sadly cannot throw an exception here since we are in the destructor
+        // Would like to though, this just needs more sanitisation externally
+        // std::cout << "Next is not null!" << std::endl;
+        // Just need to have faith I think, error messages clog up the cases where this isn't an issue
+    }
 }
 
 template <class T>
@@ -36,6 +37,9 @@ void Node_T<T>::set_data(T d) {
 
 template <class T>
 T Node_T<T>::get_data() const {
+    if (!initialised) {
+        throw Not_Initialised();
+    }
     return data;
 }
 

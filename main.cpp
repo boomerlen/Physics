@@ -1,4 +1,9 @@
+// main.cpp
+//
 // Entry point
+// This is a small physics package I am attempting to write
+//
+// Hugo Sebesta 2021
 
 // First goal of this is to make it easier to implement eigen calculations in 3D
 // i.e create ways of moving from 3D representations of coordinates to a 1D representation of a matrix
@@ -9,6 +14,7 @@
 #include "Scalar.h"
 #include "PhysVector.h"
 #include "Ordered_Set.h"
+#include "PhysExcept.h"
 
 #include "Numerical.h"
 
@@ -58,6 +64,7 @@ void test_vectors() {
     std::cout << "Vectors 1 and 2 defined" << std::endl;
 
     PhysVector vec3(2);
+    std::cout << "66" << std::endl;
     vec3 = vec1 + vec2;
     vec1.print();
     std::cout << " + ";
@@ -105,6 +112,11 @@ void test_sets() {
 
 int main() {
     // test_scalars();
+    try {
+        throw Dimension_Mismatch();
+    } catch (Dimension_Mismatch& e) {
+        std::cout << "Exception!: " << e.what() << std::endl;
+    }
 
     test_vectors();
 

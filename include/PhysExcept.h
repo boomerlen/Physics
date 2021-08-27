@@ -10,14 +10,20 @@
 #include <exception>
 
 // General
-class Not_Initialised : public exception {
-    virtual const char *what() const throw();
+class Not_Initialised : public std::exception {
+    public:
+        virtual const char *what() const throw();
+};
+
+class Dimension_Mismatch : public std::exception {
+    public:
+        virtual const char *what() const throw();
 };
 
 // Node exceptions
- class List_Memleak_Warning : public exception {
+class List_Memleak_Warning : public std::exception {
+    public:
         virtual const char *what() const throw();
- };
-
+};
 
 #endif // PHYSEXCEPT_H

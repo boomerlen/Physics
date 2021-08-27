@@ -7,7 +7,7 @@
 
 #include "Ordered_Set.h"
 #include "Scalar.h"
-//#include "PhysExcept.h"
+#include "PhysExcept.h"
 
 #include <iostream>
 
@@ -69,21 +69,20 @@ Ordered_Set<T>::~Ordered_Set()
         Node_T<T> *next_node = current_node->next;
 
         delete current_node;
-        /*} this is buggy
-        catch (exception& e) {
-            std::cout << e.what() << std::endl;
-        }*/
+
         current_node = next_node;
     }
 }
 
 // Element access methods
+// Could throw: Dimension_Mismatch(), Not_Initialised() (from Node_T.h)
 
 // Get the nth element (counting from 0)
 template <class T>
 T Ordered_Set<T>::x(int n) const {
     if (n >= dim) {
         // Should chuck an exception
+        throw Dimension_Mismatch();
     }
 
     // Iterate
@@ -102,6 +101,7 @@ void Ordered_Set<T>::x(int n, T d) {
     // Get to desired element
     if (n >= dim) {
         // should chuck an exception
+        throw Dimension_Mismatch();
     }
 
     Node_T<T> *current_node = head;
@@ -140,12 +140,12 @@ void Ordered_Set<T>::operator=(const Ordered_Set& s) {
     // Ensure dimensions match
     if (dim != s.dimension()) {
         // Should chuck some sort of exception
-        std::cout << "error not same dimensions" << std::endl;
+        throw Dimension_Mismatch();
     }
 
     // Check that s is initialised
     if (!s.initialised()) {
-        std::cout << "error, not initialised" << std::endl;
+        throw Not_Initialised();
     }
 
     // Copy values

@@ -36,6 +36,7 @@ PhysVector::PhysVector(int n, Scalar scalars[]) {
 PhysVector::~PhysVector()
 {
     //dtor
+    delete entries;
 }
 
 PhysVector PhysVector::operator+(const PhysVector& vec) const {
