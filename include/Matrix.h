@@ -45,7 +45,14 @@ class Matrix
 
         // More complicated matrix operations
         void eigensolve();
+        void sort_eigensolutions();
+
+        PhysVector *get_eigenvalues();
+        Matrix *get_eigenvectors();
+
         void row_operation(struct Row_Operation row_op);
+
+        void to_row_echelon();
 
         void print();
 
@@ -53,13 +60,20 @@ class Matrix
     protected:
 
     private:
+        // Basic
         int dim;
 
         PhysVector cols[];
 
-        Matrix reduced_form;
+        // More complicated functions
+        void algebraic_operation(stuct Algebraic_Op alg_op);
+
         Matrix eigenvectors;
         Matrix eigenvalues;
 };
+
+// Functions which produce Matrices (non-member functions)
+Matrix row_echelon_form(Matrix);
+Matrix identity_matrix(int);
 
 #endif // MATRIX_H
