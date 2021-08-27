@@ -43,6 +43,7 @@ PhysVector PhysVector::operator+(const PhysVector& vec) const {
     // check dimension matches
     if (vec.dimension() != dim) {
         // Chuck an exception or something. This isn't allowed.
+        throw Dimension_Mismatch();
     }
 
     PhysVector new_vec(dim);
@@ -60,6 +61,7 @@ PhysVector PhysVector::operator-(const PhysVector& vec) const {
     // check dimension matches
     if (vec.dimension() != dim) {
         // Chuck an exception or something. This isn't allowed.
+        throw Dimension_Mismatch();
     }
 
     PhysVector new_vec(dim);
@@ -96,8 +98,7 @@ void PhysVector::x(int i, Scalar s) {
 
 void PhysVector::operator=(const PhysVector& vec) {
     if (vec.dimension() != dim) {
-        // no
-        // TODO: chuck an exception
+        throw Dimension_Mismatch();
         return;
     }
 
