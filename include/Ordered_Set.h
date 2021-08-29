@@ -11,6 +11,11 @@
 // Note that element assignment must be done with x() not with operator[]
 #include "Node_T.h"
 
+// A fresh ordered_set will be of the desired length but will not be initialised
+// Values can be set but not read until they have been set.
+// Setting a value copies its value. It is not necessary to retain an original if it is to be
+// stored in an Ordered_Set.
+
 template <class T>
 class Ordered_Set
 {

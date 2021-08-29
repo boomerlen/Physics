@@ -20,10 +20,16 @@ class Dimension_Mismatch : public std::exception {
         virtual const char *what() const throw();
 };
 
+class Out_Of_Range : public std::exception {
+    public:
+        virtual const char *what() const throw();
+};
+
 // Node exceptions
 class List_Memleak_Warning : public std::exception {
     public:
         virtual const char *what() const throw();
 };
+
 
 #endif // PHYSEXCEPT_H
