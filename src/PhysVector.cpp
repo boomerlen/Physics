@@ -11,8 +11,6 @@
 #include <array>
 
 #include "PhysVector.h"
-#include "Ordered_Set.h"
-#include "Scalar.h"
 
 namespace phys {
 
@@ -21,19 +19,32 @@ namespace phys {
         //ctor
         dim = n;
 
-        entries = new Ordered_Set<Scalar>(n);
+        entries = std::array<std::complex<double>, n>;
 
         initialised = false;
     }
 
-    PhysVector::PhysVector(int n, Scalar scalars[]) {
+    PhysVector::PhysVector(int n, std::complex<double> scalars[]) {
         // Passed an array of scalars to populate the vector
         // Conversion from array to PhysVector
         dim = n;
 
-        entries = new Ordered_Set<Scalar>(dim, scalars);
+        entries = std::array<std::complex<double>, n>;
+
+        for (int i = 0; i < n; i++) {
+            entries[i] = scalars[i];
+        }
 
         // TODO: Complain if scalars is not a full array
+        initialised = true;
+    }
+
+    PhysVector::PhysVector(int n, std::complex<double> scalar) {
+        dim = n;
+
+        entries = std::array<std::complex<double>, n>
+
+        entries.fill(scalar);
 
         initialised = true;
     }
@@ -41,7 +52,6 @@ namespace phys {
     PhysVector::~PhysVector()
     {
         //dtor
-        delete entries;
     }
 
     PhysVector PhysVector::operator+(const PhysVector& vec) const {
@@ -55,9 +65,11 @@ namespace phys {
 
         // add element-wise
         for (int i = 0; i < dim; i++) {
-            Scalar new_s = entries->x(i) + vec.x(i);
-            new_vec.x(i, new_s);
+            std::complex<double> new_s = entries[i] + vec[i];
+            new_vec[i] = new_s;
         }
+
+        new_vec.initialised = true;
 
         return new_vec;
     }
@@ -73,32 +85,29 @@ namespace phys {
 
         // add element-wise
         for (int i = 0; i < dim; i++) {
-            Scalar new_s = entries->x(i) - vec.x(i);
-            new_vec.x(i, new_s);
+            std::complex<double> new_s = entries[i] - vec[i];
+            new_vec[i] = new_s;
         }
+
+        new_vec.initialised = true;
 
         return new_vec;
     }
 
-    Scalar PhysVector::operator*(const PhysVector& vec) const {
+    std::complex<double> PhysVector::operator*(const PhysVector& vec) const {
         // Forget if I care about dimension
 
-        Scalar result;
+        std::complex<double> result;
 
         for (int i = 0; i < dim; i++) {
-            result = result + (vec.x(i) * entries->x(i));
+            result = result + (vec[i] * entries[i]);
         }
 
         return result;
     }
 
-    Scalar PhysVector::x(int i) const {
-        return entries->x(i);
-    }
-
-    void PhysVector::x(int i, Scalar s) {
-        entries->x(i, s);
-        return;
+    std::complex& PhysVector::operator[](int index) const {
+        return &entries[index];
     }
 
     void PhysVector::operator=(const PhysVector& vec) {
@@ -108,7 +117,7 @@ namespace phys {
         }
 
         for (int i = 0; i < dim; i++) {
-            entries->x(i, vec.x(i));
+            entries[i] = vec[i];
         }
 
         initialised = true;
@@ -116,19 +125,19 @@ namespace phys {
     }
 
     // TODO: Throw an exception or something if the vec is too small
-    void PhysVector::operator=(const Scalar vec[]) {
+    void PhysVector::operator=(const std::complex<double> vec[]) {
         // Copies first dim entries only
         for (int i = 0; i < dim; i++) {
-            entries->x(i, vec[i]);
+            entries[i] = vec[i];
         }
 
         initialised = true;
         return;
     }
 
-    void PhysVector::operator=(const Scalar& scalar) {
+    void PhysVector::operator=(const std::complex<double>& scalar) {
         for (int i = 0; i < dim; i++) {
-            entries->x(i, scalar);
+            entries[i] = scalar;
         }
 
         initialised = true;
@@ -139,15 +148,21 @@ namespace phys {
         return dim;
     }
 
-    void PhysVector::make_empty() {
-        // puts 0 in every entry
-        Scalar zero(0, 0);
-
-        for (int i = 0; i < dim; i++) {
-            entries->x(i, zero);
+    bool PhysVector::check_init() const {
+        if (!initialised || entries->empty()) {
+            return false;
         }
 
+        return true;
+    }
+
+    void PhysVector::make_empty() {
+        // puts 0 in every entry
+        std::complex<double> zero = 0.0;
+        entries.fill(zero)
+
         initialised = true;
+
         return;
     }
 
@@ -160,7 +175,7 @@ namespace phys {
         std::cout << "[";
 
         for (int i = 0; i < dim; i++) {
-            entries->x(i).print();
+            entries[i].print();
             if (i != (dim - 1)) {
                 std::cout << ", ";
             }

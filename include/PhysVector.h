@@ -1,11 +1,10 @@
 #ifndef PHYSVECTOR_H
 #define PHYSVECTOR_H
 
-#include "Scalar.h"
-#include "Ordered_Set.h"
-
 #include <complex>
 #include <array>
+
+// TODO: Change the way the dimension is set to with a templated thing like std::array
 
 namespace phys {
 
@@ -13,23 +12,21 @@ namespace phys {
     {
         public:
             PhysVector(int n);
-            PhysVector(int n, Scalar scalars[]);
+            PhysVector(int n, std::complex<double> scalars[]);
+            PhysVector(int n, std::complex<double> scalar);
             virtual ~PhysVector();
 
             PhysVector operator+(const PhysVector&) const;
             PhysVector operator-(const PhysVector&) const;
-            std::complex operator*(const PhysVector&) const;
-            PhysVector operator*(const Scalar&) const;
+            std::complex<double> operator*(const PhysVector&) const;
+            PhysVector operator*(const std::complex<double>&) const;
 
-            // Object access using x(index, [val])
-            &std::complex operator[](int);
-            void 
-            Scalar x(int i) const;
-            void x(int i, Scalar s);
+            // Object access using [] operator]
+            std::complex<double>& operator[](int) const; // Least sure about this one
 
             void operator=(const PhysVector&);
-            void operator=(const Scalar[]);
-            void operator=(const Scalar&);
+            void operator=(const std::complex<double>[]);
+            void operator=(const std::complex<double>&);
 
             int dimension() const;
             bool check_init() const;
@@ -43,7 +40,7 @@ namespace phys {
             int dim;
             bool initialised;
 
-            std::array<std::complex<double>> entries;
+            std::array<std::complex<double>, dim> entries;
       };
 
 } // namespace phys
