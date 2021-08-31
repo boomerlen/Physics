@@ -7,13 +7,13 @@
 // TODO: Change the way the dimension is set to with a templated thing like std::array
 
 namespace phys {
-
+    template <int dim>
     class PhysVector
     {
         public:
-            PhysVector(int n);
-            PhysVector(int n, std::complex<double> scalars[]);
-            PhysVector(int n, std::complex<double> scalar);
+            PhysVector();
+            PhysVector(std::complex<double> scalars[]);
+            PhysVector(std::complex<double> scalar);
             virtual ~PhysVector();
 
             PhysVector operator+(const PhysVector&) const;
@@ -22,7 +22,8 @@ namespace phys {
             PhysVector operator*(const std::complex<double>&) const;
 
             // Object access using [] operator]
-            std::complex<double>& operator[](int) const; // Least sure about this one
+            const std::complex<double>& operator[](int) const; // Least sure about this one
+            std::complex<double>& operator[](int);
 
             void operator=(const PhysVector&);
             void operator=(const std::complex<double>[]);
@@ -37,7 +38,6 @@ namespace phys {
         protected:
 
         private:
-            int dim;
             bool initialised;
 
             std::array<std::complex<double>, dim> entries;

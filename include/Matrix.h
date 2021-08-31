@@ -5,100 +5,110 @@
 //
 // Hugo Sebesta 2021
 
+// TODO refactor like PhysVector (the more c++ like style)
+
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "Scalar.h"
+// STL
+#include <complex>
+#include <vector>
+
+// My includes
 #include "PhysVector.h"
-#include "Ordered_Set.h"
 
-struct Algebraic_Op {
-    int row;
-    Scalar scalar;
-};
+namespace phys {
 
-struct Row_Operation {
-    int outrow;
-    struct Algebraic_Op operations[];
-};
+    struct Algebraic_Op {
+        int row;
+        std::complex<double> scalar;
+    };
 
-class Matrix
-{
-    public:
-        Matrix(int m, int n);
-        virtual ~Matrix();
+    struct Row_Operation {
+        int outrow;
+        std::vector<struct Algebraic_Op> operations;
+    };
 
-        // Basic arithmetic
-        Matrix operator+(const Matrix&);
-        Matrix operator-(const Matrix&);
-        Matrix operator*(const Scalar&);
+    class Matrix
+    {
+        public:
+            Matrix(int, int);
+            virtual ~Matrix();
+            /* WIP: Needs the refactoring
+            // Basic arithmetic
+            Matrix operator+(const Matrix&);
+            Matrix operator-(const Matrix&);
+            Matrix operator*(const std::complex<double>&);
 
-        Matrix operator*(const Matrix&);
+            Matrix operator*(const Matrix&);
 
-        // Column operations
-        PhysVector col(int) const;
-        void col(int, const PhysVector&);
+            // Column operations
+            PhysVector col(int) const;
+            void col(int, const PhysVector&);
 
-        // Row operations
-        PhysVector row(int) const;
-        void row(int, const PhysVector&);
+            // Row operations
+            PhysVector row(int) const;
+            void row(int, const PhysVector&);
 
-        // Element operations
-        Scalar x(int, int) const;
-        void x(int, int, const Scalar&);
+            // Element operations
+            std::complex<double> x(int, int) const;
+            void x(int, int, const std::complex<double>&);
 
-        // Assignment
-        void operator=(const Matrix&);
-        void operator=(const PhysVector&);
-        void operator=(const Scalar&);
+            // Assignment
+            void operator=(const Matrix&);
+            void operator=(const PhysVector&);
+            void operator=(const std::complex<double>&);
 
-        // Gluing matrices together
-        Matrix operator|(const Matrix&);
-        Matrix operator|(const PhysVector&);
+            // Gluing matrices together
+            Matrix operator|(const Matrix&);
+            Matrix operator|(const PhysVector&);
 
-        // Dimension
-        int get_rows() const;
-        int get_cols() const;
+            // Dimension
+            int get_rows() const;
+            int get_cols() const;
 
-        // More complicated matrix operations
-        void compute_inverse();
-        Matrix *get_inverse();
+            // More complicated matrix operations
+            void compute_inverse();
+            Matrix *get_inverse();
 
-        Scalar determinant();
+            std::complex determinant();
 
-        void eigensolve();
-        void sort_eigensolutions();
+            void eigensolve();
+            void sort_eigensolutions();
 
-        PhysVector *get_eigenvalues();
-        Matrix *get_eigenvectors();
+            PhysVector *get_eigenvalues();
+            Matrix *get_eigenvectors();
 
-        void row_operation(const struct Row_Operation &row_op);
+            void row_operation(const struct Row_Operation &row_op);
 
-        void to_row_echelon();
+            void to_row_echelon();
 
-        void print() const;
+            void print() const;
 
-        void identity();
-    protected:
+            void identity();
+        protected:
 
-    private:
-        // Basic
-        int m; // an m x n matrix has m rows and n cols
-        int n;
+        private:
+            // Basic
+            int m; // an m x n matrix has m rows and n cols
+            int n;
 
-        Ordered_Set<PhysVector> *cols;
+            std::vector<PhysVector> cols;
 
-        // More complicated functions
-        void algebraic_operation(const stuct Algebraic_Op &alg_op);
+            // More complicated functions
+            void algebraic_operation(const stuct Algebraic_Op &alg_op);
 
-        Matrix *inverse;
+            Matrix *inverse;
 
-        Matrix *eigenvectors;
-        Matrix *eigenvalues;
-};
+            Matrix *eigenvectors;
+            Matrix *eigenvalues;
+            */
+    };
 
-// Functions which produce Matrices (non-member functions)
-Matrix row_echelon_form(const Matrix&);
-Matrix identity_matrix(int);
+    // Functions which produce Matrices (non-member functions)
+    Matrix row_echelon_form(const Matrix&);
+    Matrix identity_matrix(int);
 
+
+} // namespace phys
 #endif // MATRIX_H

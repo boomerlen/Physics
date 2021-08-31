@@ -4,111 +4,119 @@
 //
 // Hugo Sebesta 2021
 
+#include <complex>
+#include <vector>
+
 #include "Matrix.h"
 #include "PhysExcept.h"
 
-// Non-member functions
+namespace phys {
+// Not implementing for now
+/*
+    // Non-member functions
 
-// Returns the given matrix after row reductions
-Matrix row_echelon_form(const Matrix &in_matrix);
+    // Returns the given matrix after row reductions
+    Matrix row_echelon_form(const Matrix &in_matrix);
 
-// Returns the identity matrix of the given dimension
-Matrix identity_matrix(int n) {
-    Matrix id_matrix(n, n);
+    // Returns the identity matrix of the given dimension
+    Matrix identity_matrix(int n) {
+        Matrix id_matrix(n, n);
 
-    for (int i = 0; i < n; i++) {
-        id_matrix.x(i, i, Scalar(1.0, 0.0));
+        for (int i = 0; i < n; i++) {
+            id_matrix.x(i, i, Scalar(1.0, 0.0));
+        }
+
+        return id_matrix;
     }
 
-    return id_matrix;
-}
+    // Member functions
 
-// Member functions
+    Matrix::Matrix(int m, int n)
+    {
+        // Generate n vectors with m entries
+        cols = new Ordered_Set<PhysVector>(n);
 
-Matrix::Matrix(int m, int n)
-{
-    // Generate n vectors with m entries
-    cols = new Ordered_Set<PhysVector>(n);
+        // Put aa 0ed PhysVector in each col
+        for (int i = 0; i < n; i++) {
+            PhysVector new_vector = PhysVector(m);
 
-    // Put aa 0ed PhysVector in each col
-    for (int i = 0; i < n; i++) {
-        PhysVector new_vector = PhysVector(m);
+            // Set all elements to 0.0
+            new_vector = Scalar();
 
-        // Set all elements to 0.0
-        new_vector = Scalar();
-
-        // Add to ordered set
-        col.x(i, new_vector);
-    }
-}
-
-Matrix::~Matrix()
-{
-    //dtor
-    delete cols;
-}
-
-// Basic arithmetic
-
-// Adds elementwise. Only for equally sized matrices
-Matrix Matrix::operator+(const Matrix& matrix) {
-    if (n != matrix.get_cols() || m != matrix.get_rows()) {
-        throw Dimension_Mismatch();
-    }
-
-    // Add each element
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-
+            // Add to ordered set
+            col.x(i, new_vector);
         }
     }
-}
 
-// Column operations (easy)
-PhysVector Matrix::col(int col) const {
-    // Returns the PhysVector corresponding to that column
-    if (col > n) {
-        throw Out_Of_Range();
+    Matrix::~Matrix()
+    {
+        //dtor
+        delete cols;
     }
 
-    return cols.x(col);
-}
+    // Basic arithmetic
 
-// Assigns a new column
-void Matrix::col(int col, const PhysVector &new_col) {
-    if (col > n) {
-        throw Out_Of_Range();
+    // Adds elementwise. Only for equally sized matrices
+    Matrix Matrix::operator+(const Matrix& matrix) {
+        if (n != matrix.get_cols() || m != matrix.get_rows()) {
+            throw Dimension_Mismatch();
+        }
+
+        // Add each element
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+
+            }
+        }
     }
 
-    cols.x(col, new_col);
+    // Column operations (easy)
+    PhysVector Matrix::col(int col) const {
+        // Returns the PhysVector corresponding to that column
+        if (col > n) {
+            throw Out_Of_Range();
+        }
 
-    return;
-}
-
-// Row operations (hardest)
-
-// Element operations (harder)
-Scalar Matrix::x(int row, int col) const {
-    // Returns the element at the rowth row and colth col
-    if (row > m || col > n || row < 0 || col < 0) {
-        throw Out_Of_Range();
+        return cols.x(col);
     }
 
-    // Get colth columns
-    PhysVector *col_ptr = cols.x(col);
-    // We have our issue.....
-    // Will require some farily major refactoring at this point.
-    
-}
+    // Assigns a new column
+    void Matrix::col(int col, const PhysVector &new_col) {
+        if (col > n) {
+            throw Out_Of_Range();
+        }
 
-// Makes the matrix into the identity of the correct dimension
-// Only for square matrix - will throw Dimension_Mismatch() otherwise
-void Matrix::identity() {
-    if (m != n) {
-        // bad
-        throw Dimension_Mismatch();
+        cols.x(col, new_col);
+
+        return;
     }
 
-    // Use = operator
-    *this = identity_matrix(n);
+    // Row operations (hardest)
+
+    // Element operations (harder)
+    Scalar Matrix::x(int row, int col) const {
+        // Returns the element at the rowth row and colth col
+        if (row > m || col > n || row < 0 || col < 0) {
+            throw Out_Of_Range();
+        }
+
+        // Get colth columns
+        PhysVector *col_ptr = cols.x(col);
+        // We have our issue.....
+        // Will require some farily major refactoring at this point.
+
+    }
+
+    // Makes the matrix into the identity of the correct dimension
+    // Only for square matrix - will throw Dimension_Mismatch() otherwise
+    void Matrix::identity() {
+        if (m != n) {
+            // bad
+            throw Dimension_Mismatch();
+        }
+
+        // Use = operator
+        *this = identity_matrix(n);
+    }
+*/
 }

@@ -18,6 +18,7 @@
 #include "PhysExcept.h"
 #include "Numerical.h"
 
+using namespace std::complex_literals;
 
 void test_vectors() {
     std::cout << "Vectors" << std::endl;
@@ -25,22 +26,22 @@ void test_vectors() {
     // Make some scalars
     std::complex<double> scalars1[2];
     scalars1[0] = 1.0 + 2.0i;
-    scalars1[1] = 2.0
+    scalars1[1] = 2.0;
 
     std::cout << "Scalar 1 defined" << std::endl;
 
     std::complex<double> scalars2[2];
-    scalars2[0] = 3 + 4i;
-    scalars2[1] = 0 + 2i;
+    scalars2[0] = 3.0 + 4.0i;
+    scalars2[1] = 0.0 + 2.0i;
 
     std::cout << "Scalar 2 defined" << std::endl;
 
-    phys::PhysVector vec1(2, scalars1);
-    phys::PhysVector vec2(2, scalars2);
+    phys::PhysVector<2> vec1(scalars1);
+    phys::PhysVector<2> vec2(scalars2);
 
     std::cout << "Vectors 1 and 2 defined" << std::endl;
 
-    PhysVector vec3(2);
+    phys::PhysVector<2> vec3;
     std::cout << "66" << std::endl;
     vec3 = vec1 + vec2;
     vec1.print();
