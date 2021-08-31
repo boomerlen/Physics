@@ -4,39 +4,48 @@
 #include "Scalar.h"
 #include "Ordered_Set.h"
 
-class PhysVector
-{
-    public:
-        PhysVector(int n);
-        PhysVector(int n, Scalar scalars[]);
-        virtual ~PhysVector();
+#include <complex>
+#include <array>
 
-        PhysVector operator+(const PhysVector&) const;
-        PhysVector operator-(const PhysVector&) const;
-        Scalar operator*(const PhysVector&) const;
-        PhysVector operator*(const Scalar&) const;
+namespace phys {
 
-        // Object access using x(index, [val])
-        Scalar x(int i) const;
-        void x(int i, Scalar s);
+    class PhysVector
+    {
+        public:
+            PhysVector(int n);
+            PhysVector(int n, Scalar scalars[]);
+            virtual ~PhysVector();
 
-        void operator=(const PhysVector&);
-        void operator=(const Scalar[]);
-        void operator=(const Scalar&);
+            PhysVector operator+(const PhysVector&) const;
+            PhysVector operator-(const PhysVector&) const;
+            std::complex operator*(const PhysVector&) const;
+            PhysVector operator*(const Scalar&) const;
 
-        int dimension() const;
-        bool check_init() const;
+            // Object access using x(index, [val])
+            &std::complex operator[](int);
+            void 
+            Scalar x(int i) const;
+            void x(int i, Scalar s);
 
-        void make_empty();
+            void operator=(const PhysVector&);
+            void operator=(const Scalar[]);
+            void operator=(const Scalar&);
 
-        void print() const;
-    protected:
+            int dimension() const;
+            bool check_init() const;
 
-    private:
-        int dim;
-        bool initialised;
+            void make_empty();
 
-        Ordered_Set<Scalar> *entries;
-};
+            void print() const;
+        protected:
+
+        private:
+            int dim;
+            bool initialised;
+
+            std::array<std::complex<double>> entries;
+      };
+
+} // namespace phys
 
 #endif // PHYSVECTOR_H

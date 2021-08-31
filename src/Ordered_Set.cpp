@@ -1,5 +1,7 @@
 // Ordered_Set.cpp
 //
+// This is being replaced by std::array and std::vector ;(
+// Now unused
 // Implements the ordered_set class
 // Used as an underlying container for vectors
 //

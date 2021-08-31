@@ -1,3 +1,11 @@
+// Scalar.h
+//
+// A scalar type (complex number) implementation
+// Just going to use std::complex instead though
+// Worth the practice though
+//
+// Hugo Sebesta 2021
+
 // A could-be complex scalar
 
 #ifndef SCALAR_H

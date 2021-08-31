@@ -1,5 +1,6 @@
 // Ordered_Set.h
 //
+// This is now deprecated and unused
 // Underlying data structure for storing scalars (or something else) in vectors, matrices etc
 // Implemented as a linked list
 //

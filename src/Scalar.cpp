@@ -1,3 +1,9 @@
+// Scalar.cpp
+//
+// Deprecated. This system now uses std::complex instead
+//
+// Hugo Sebesta 2021
+
 // A could-be complex scalar
 
 #include <cmath>
