@@ -15,8 +15,8 @@ $(BIN)/Physics: $(OBJ)/src/Matrix.o $(OBJ)/src/PhysVector.o $(OBJ)/src/Numerical
 # Each obj file
 $(OBJ)/main.o: main.cpp
 	$(CC) -o $(OBJ)/main.o main.cpp $(FLAGS) -c
-$(OBJ)/src/Matrix.o: $(SRC)/Matrix.cpp
-	$(CC) -o $(OBJ)/src/Matrix.o $(SRC)/Matrix.cpp $(FLAGS) -c
+$(OBJ)/src/Matrix.o: $(SRC)/Matrix.tpp
+	$(CC) -o $(OBJ)/src/Matrix.o $(SRC)/Matrix.tpp $(FLAGS) -c
 $(OBJ)/src/PhysVector.o: $(SRC)/PhysVector.tpp
 	$(CC) -o $(OBJ)/src/PhysVector.o $(SRC)/PhysVector.tpp $(FLAGS) -c
 $(OBJ)/src/Numerical.o: $(SRC)/Numerical.cpp

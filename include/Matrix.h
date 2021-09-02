@@ -29,30 +29,33 @@ namespace phys {
         std::vector<struct Algebraic_Op> operations;
     };
 
+    template <int rows, int cols>
     class Matrix
     {
         public:
-            Matrix(int, int);
+            Matrix();
             virtual ~Matrix();
-            /* WIP: Needs the refactoring
             // Basic arithmetic
             Matrix operator+(const Matrix&);
             Matrix operator-(const Matrix&);
             Matrix operator*(const std::complex<double>&);
 
+            // Problem: don't know size of output matrix at compile-time
             Matrix operator*(const Matrix&);
 
-            // Column operations
-            PhysVector col(int) const;
-            void col(int, const PhysVector&);
+            // Column operations using [] operator
+            const PhysVector& operator[](int) const;
+            PhysVector& operator[](int);
 
             // Row operations
             PhysVector row(int) const;
             void row(int, const PhysVector&);
 
+            /* I believe that all this can be done using [][] as [] will return an object that can have [] applied to it..?
             // Element operations
             std::complex<double> x(int, int) const;
             void x(int, int, const std::complex<double>&);
+            */
 
             // Assignment
             void operator=(const Matrix&);
@@ -90,10 +93,9 @@ namespace phys {
 
         private:
             // Basic
-            int m; // an m x n matrix has m rows and n cols
-            int n;
+            int num_cols; // Since we can add vectors easily
 
-            std::vector<PhysVector> cols;
+            std::vector<PhysVector<rows>> columms;
 
             // More complicated functions
             void algebraic_operation(const stuct Algebraic_Op &alg_op);
@@ -102,7 +104,6 @@ namespace phys {
 
             Matrix *eigenvectors;
             Matrix *eigenvalues;
-            */
     };
 
     // Functions which produce Matrices (non-member functions)
@@ -111,4 +112,7 @@ namespace phys {
 
 
 } // namespace phys
+
+#include "../src/Matrix.tpp"
+
 #endif // MATRIX_H

@@ -11,8 +11,7 @@
 #include "PhysExcept.h"
 
 namespace phys {
-// Not implementing for now
-/*
+
     // Non-member functions
 
     // Returns the given matrix after row reductions
@@ -20,10 +19,10 @@ namespace phys {
 
     // Returns the identity matrix of the given dimension
     Matrix identity_matrix(int n) {
-        Matrix id_matrix(n, n);
+        Matrix<n, n> id_matrix;
 
         for (int i = 0; i < n; i++) {
-            id_matrix.x(i, i, Scalar(1.0, 0.0));
+            id_matrix[i][i] = 1.0;
         }
 
         return id_matrix;
@@ -31,27 +30,24 @@ namespace phys {
 
     // Member functions
 
-    Matrix::Matrix(int m, int n)
+    template <int rows, int cols>
+    Matrix<rows, cols>::Matrix()
     {
-        // Generate n vectors with m entries
-        cols = new Ordered_Set<PhysVector>(n);
+        num_cols = cols;
 
         // Put aa 0ed PhysVector in each col
         for (int i = 0; i < n; i++) {
-            PhysVector new_vector = PhysVector(m);
-
-            // Set all elements to 0.0
-            new_vector = Scalar();
-
-            // Add to ordered set
-            col.x(i, new_vector);
+            columns[i] = PhysVector<rows>(0.0)
         }
     }
 
-    Matrix::~Matrix()
+    template <int rows, int cols>
+    Matrix<rows, cols>::~Matrix()
     {
         //dtor
-        delete cols;
+        delete inverse;
+        delete eigenvectors;
+        delete eigenvalues;
     }
 
     // Basic arithmetic
@@ -118,5 +114,4 @@ namespace phys {
         // Use = operator
         *this = identity_matrix(n);
     }
-*/
 }
