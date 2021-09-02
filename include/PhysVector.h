@@ -45,4 +45,9 @@ namespace phys {
 
 } // namespace phys
 
+// Instantisations (for templating to work)
+#include "../src/PhysVector.tpp"
+
+// Omg that worked wtf yes
+
 #endif // PHYSVECTOR_H

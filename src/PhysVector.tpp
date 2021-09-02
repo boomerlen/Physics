@@ -13,6 +13,7 @@
 #include "PhysVector.h"
 #include "PhysExcept.h"
 
+
 namespace phys {
 
     template <int dim>
@@ -202,6 +203,7 @@ namespace phys {
     }
 
     // Instantisations
-    template class PhysVector<2>;
+    // Problem - generating a class for each number is a waste of machine code!
+    //template class PhysVector<2>;
 
 } // namespace phys

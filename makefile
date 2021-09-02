@@ -17,8 +17,8 @@ $(OBJ)/main.o: main.cpp
 	$(CC) -o $(OBJ)/main.o main.cpp $(FLAGS) -c
 $(OBJ)/src/Matrix.o: $(SRC)/Matrix.cpp
 	$(CC) -o $(OBJ)/src/Matrix.o $(SRC)/Matrix.cpp $(FLAGS) -c
-$(OBJ)/src/PhysVector.o: $(SRC)/PhysVector.cpp
-	$(CC) -o $(OBJ)/src/PhysVector.o $(SRC)/PhysVector.cpp $(FLAGS) -c
+$(OBJ)/src/PhysVector.o: $(SRC)/PhysVector.tpp
+	$(CC) -o $(OBJ)/src/PhysVector.o $(SRC)/PhysVector.tpp $(FLAGS) -c
 $(OBJ)/src/Numerical.o: $(SRC)/Numerical.cpp
 	$(CC) -o $(OBJ)/src/Numerical.o $(SRC)/Numerical.cpp $(FLAGS) -c
 $(OBJ)/src/PhysExcept.o: $(SRC)/PhysExcept.cpp

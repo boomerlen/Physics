@@ -18,6 +18,7 @@
 #include "PhysExcept.h"
 #include "Numerical.h"
 
+// To use 1.0i e.g. as the imaginary unit
 using namespace std::complex_literals;
 
 void test_vectors() {
