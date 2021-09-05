@@ -149,6 +149,7 @@ namespace phys {
     template <int dim>
     void PhysVector<dim>::operator=(const std::complex<double>& scalar) {
         for (int i = 0; i < dim; i++) {
+            std::cout << "Putting scalar into vector row " << i << std::endl;
             entries[i] = scalar;
         }
 

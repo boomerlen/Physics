@@ -15,11 +15,28 @@
 
 // My includes
 #include "PhysVector.h"
+#include "Matrix.h"
 #include "PhysExcept.h"
 #include "Numerical.h"
 
 // To use 1.0i e.g. as the imaginary unit
 using namespace std::complex_literals;
+
+void test_matrices() {
+    std::cout << "Matrices" << std::endl;
+
+    phys::Matrix<2, 2> matrix;
+
+    matrix[0].print();
+    matrix[0] = 1.0 + 2.0i;
+    try {
+        matrix.print();
+    } catch (const phys::Not_Initialised& e) {
+        std::cout << "Generating transpose and printing again" << std::endl;
+        matrix.compute_transpose();
+        matrix.print();
+    }
+}
 
 void test_vectors() {
     std::cout << "Vectors" << std::endl;
@@ -57,7 +74,8 @@ void test_vectors() {
 
 int main() {
     // Tests
-    test_vectors();
+    //test_vectors();
+    test_matrices();
 
     std::cout << "Integral of sinx from 0 to pi: " << num_integral_sinx(0.0, 3.14159, 0.001) << std::endl;
     return 0;

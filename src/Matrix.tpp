@@ -6,6 +6,7 @@
 
 #include <complex>
 #include <vector>
+#include <iostream>
 
 #include "Matrix.h"
 #include "PhysExcept.h"
@@ -15,10 +16,12 @@ namespace phys {
     // Non-member functions
 
     // Returns the given matrix after row reductions
-    Matrix row_echelon_form(const Matrix &in_matrix);
+    template <int rows, int cols>
+    Matrix<rows, cols> row_echelon_form(const Matrix<rows, cols> &in_matrix);
 
     // Returns the identity matrix of the given dimension
-    Matrix identity_matrix(int n) {
+    template <int n>
+    Matrix<n, n> identity_matrix() {
         Matrix<n, n> id_matrix;
 
         for (int i = 0; i < n; i++) {
@@ -31,87 +34,119 @@ namespace phys {
     // Member functions
 
     template <int rows, int cols>
-    Matrix<rows, cols>::Matrix()
-    {
+    Matrix<rows, cols>::Matrix() {
         num_cols = cols;
 
-        // Put aa 0ed PhysVector in each col
-        for (int i = 0; i < n; i++) {
-            columns[i] = PhysVector<rows>(0.0)
+        inverse = nullptr;
+        transpose = nullptr;
+        eigenvectors = nullptr;
+        eigenvalues = nullptr;
+
+        // Fill columns with 0ed physvectors
+        std::complex<double> zero = 0.0;
+
+        for (int i = 0; i < cols; i++) {
+            columns.push_back(zero);
         }
     }
 
     template <int rows, int cols>
-    Matrix<rows, cols>::~Matrix()
-    {
-        //dtor
-        delete inverse;
-        delete eigenvectors;
-        delete eigenvalues;
-    }
-
-    // Basic arithmetic
-
-    // Adds elementwise. Only for equally sized matrices
-    Matrix Matrix::operator+(const Matrix& matrix) {
-        if (n != matrix.get_cols() || m != matrix.get_rows()) {
-            throw Dimension_Mismatch();
+    Matrix<rows, cols>::~Matrix() {
+        // dtor
+        if (inverse != nullptr) {
+            delete inverse;
         }
 
-        // Add each element
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        if (transpose != nullptr) {
+            delete transpose;
+        }
 
+        if (eigenvectors != nullptr) {
+            delete eigenvectors;
+        }
+
+        if (eigenvalues != nullptr) {
+            delete eigenvalues;
+        }
+    }
+
+
+    // Column operations
+    template <int rows, int cols>
+    const PhysVector<rows>& Matrix<rows, cols>::operator[](int index) const {
+        if (index < 0 || index >= num_cols) {
+            throw Out_Of_Range();
+        }
+
+        return columns[index];
+    }
+
+    template <int rows, int cols>
+    PhysVector<rows>& Matrix<rows, cols>::operator[](int index) {
+        if (index < 0 || index >= num_cols) {
+            throw Out_Of_Range();
+        }
+
+        return columns[index];
+    }
+
+    // Computes the transpose of the matrix. Stores it in tranpose*
+    template <int rows, int cols>
+    void Matrix<rows, cols>::compute_transpose() {
+        if (cols != num_cols) {
+            // This may not be a huge issue in which case I will skip this
+            throw Matrix_Glue_Failure();
+        }
+
+        // Make a new matrix with opposite rows and cols
+        Matrix<cols, rows> *transposed_matrix = new Matrix<cols, rows>();
+
+        // Grab column vectors by iterating along original matrix cols
+        for (int i = 0; i < num_cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                transposed_matrix[i][j] = columns[j][i];
             }
         }
+
+        transpose = transposed_matrix;
     }
 
-    // Column operations (easy)
-    PhysVector Matrix::col(int col) const {
-        // Returns the PhysVector corresponding to that column
-        if (col > n) {
-            throw Out_Of_Range();
+    template <int rows, int cols>
+    Matrix<cols, rows> *Matrix<rows, cols>::get_transpose() const {
+        if (transpose == nullptr) {
+            throw Not_Initialised();
         }
 
-        return cols.x(col);
+        return transpose;
     }
 
-    // Assigns a new column
-    void Matrix::col(int col, const PhysVector &new_col) {
-        if (col > n) {
-            throw Out_Of_Range();
+    // Prints the matrix
+    // Will throw Not_Initialised if a transpose has not yet been computed.
+    template <int rows, int cols>
+    void Matrix<rows, cols>::print() const {
+        // Ensure on new line
+        std::cout << std::endl;
+
+        // Get transposed version of this matrix
+        Matrix<cols, rows> *matrix_transposed = get_transpose();
+
+        // Print each vector of the transposed matrix on their own line (row vectors)
+        for (int i = 0; i < num_cols; i++) {
+            matrix_transposed[i].print();
+            std::cout << std::endl;
         }
-
-        cols.x(col, new_col);
-
-        return;
-    }
-
-    // Row operations (hardest)
-
-    // Element operations (harder)
-    Scalar Matrix::x(int row, int col) const {
-        // Returns the element at the rowth row and colth col
-        if (row > m || col > n || row < 0 || col < 0) {
-            throw Out_Of_Range();
-        }
-
-        // Get colth columns
-        PhysVector *col_ptr = cols.x(col);
-        // We have our issue.....
-        // Will require some farily major refactoring at this point.
-
     }
 
     // Makes the matrix into the identity of the correct dimension
     // Only for square matrix - will throw Dimension_Mismatch() otherwise
-    void Matrix::identity() {
-        if (m != n) {
+    template <int rows, int cols>
+    void Matrix<rows, cols>::identity() {
+        if (rows != num_cols) {
             // bad
             throw Dimension_Mismatch();
         }
 
         // Use = operator
-        *this = identity_matrix(n);
+        *this = identity_matrix<rows>(); // probably will cause error
     }
 }

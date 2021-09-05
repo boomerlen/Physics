@@ -33,7 +33,7 @@ namespace phys {
     class Matrix
     {
         public:
-            Matrix();
+            Matrix(); // Fills matrix with 0s so it is never uninitialised
             virtual ~Matrix();
             // Basic arithmetic
             Matrix operator+(const Matrix&);
@@ -44,12 +44,12 @@ namespace phys {
             Matrix operator*(const Matrix&);
 
             // Column operations using [] operator
-            const PhysVector& operator[](int) const;
-            PhysVector& operator[](int);
+            const PhysVector<rows>& operator[](int) const;
+            PhysVector<rows>& operator[](int);
 
-            // Row operations
-            PhysVector row(int) const;
-            void row(int, const PhysVector&);
+            // Row operations - operate slightly differently to the [] operator - returns copies not referneces
+            PhysVector<cols> row(int) const;
+            void row(int, const PhysVector<cols>&);
 
             /* I believe that all this can be done using [][] as [] will return an object that can have [] applied to it..?
             // Element operations
@@ -59,12 +59,15 @@ namespace phys {
 
             // Assignment
             void operator=(const Matrix&);
-            void operator=(const PhysVector&);
+            void operator=(const PhysVector<rows>&);
             void operator=(const std::complex<double>&);
 
             // Gluing matrices together
-            Matrix operator|(const Matrix&);
-            Matrix operator|(const PhysVector&);
+            void operator|(const Matrix&);
+            void operator|(const PhysVector<rows>&);
+
+            // Undoing gluing
+            void split(int final_col, int first_col = 0);
 
             // Dimension
             int get_rows() const;
@@ -72,21 +75,25 @@ namespace phys {
 
             // More complicated matrix operations
             void compute_inverse();
-            Matrix *get_inverse();
+            Matrix *get_inverse() const;
 
-            std::complex determinant();
+            void compute_transpose();
+            Matrix<cols, rows> *get_transpose() const;
+
+            void compute_determinant();
+            std::complex<double> get_determinant() const;
 
             void eigensolve();
             void sort_eigensolutions();
 
-            PhysVector *get_eigenvalues();
+            PhysVector<rows> *get_eigenvalues();
             Matrix *get_eigenvectors();
 
             void row_operation(const struct Row_Operation &row_op);
 
             void to_row_echelon();
 
-            void print() const;
+            void print() const ; 
 
             void identity();
         protected:
@@ -95,21 +102,24 @@ namespace phys {
             // Basic
             int num_cols; // Since we can add vectors easily
 
-            std::vector<PhysVector<rows>> columms;
+            std::vector<PhysVector<rows>> columns;
 
             // More complicated functions
-            void algebraic_operation(const stuct Algebraic_Op &alg_op);
+            void algebraic_operation(const struct Algebraic_Op &alg_op);
 
             Matrix *inverse;
+            Matrix *transpose;
 
             Matrix *eigenvectors;
             Matrix *eigenvalues;
     };
 
     // Functions which produce Matrices (non-member functions)
-    Matrix row_echelon_form(const Matrix&);
-    Matrix identity_matrix(int);
+    template <int rows, int cols>
+    Matrix<rows, cols> row_echelon_form(const Matrix<rows, cols>&);
 
+    template <int n>
+    Matrix<n, n> identity_matrix(); // Unsure about this
 
 } // namespace phys
 

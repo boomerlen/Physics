@@ -32,5 +32,11 @@ namespace phys {
             virtual const char *what() const throw();
     };
 
+    // Matrix exceptions
+    class Matrix_Glue_Failure : public std::exception {
+        public:
+            virtual const char *what() const throw();
+    };
+
 } // namespace phys
 #endif // PHYSEXCEPT_H

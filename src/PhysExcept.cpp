@@ -23,4 +23,8 @@ namespace phys {
     const char *Out_Of_Range::what() const throw() {
         return "Out of range";
     }
+
+    const char *Matrix_Glue_Failure::what() const throw() {
+        return "Warning: operating must use originally sized matrix. Behaviour for matrices with added columns is undefined.";
+    }
 } // namespace phys
