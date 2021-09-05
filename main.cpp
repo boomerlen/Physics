@@ -34,6 +34,7 @@ void test_matrices() {
     } catch (const phys::Not_Initialised& e) {
         std::cout << "Generating transpose and printing again" << std::endl;
         matrix.compute_transpose();
+        std::cout << "Transpose computed" << std::endl;
         matrix.print();
     }
 }

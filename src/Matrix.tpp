@@ -93,22 +93,31 @@ namespace phys {
     // Computes the transpose of the matrix. Stores it in tranpose*
     template <int rows, int cols>
     void Matrix<rows, cols>::compute_transpose() {
+        std::cout << "line 96" << std::endl;
         if (cols != num_cols) {
             // This may not be a huge issue in which case I will skip this
             throw Matrix_Glue_Failure();
         }
 
+        std::cout << "rows: " << rows << " cols: " << cols << std::endl;
+
+        std::cout << "line 101" << std::endl;
+
         // Make a new matrix with opposite rows and cols
         Matrix<cols, rows> *transposed_matrix = new Matrix<cols, rows>();
 
+        std::cout << "line 104" << std::endl;
+
         // Grab column vectors by iterating along original matrix cols
-        for (int i = 0; i < num_cols; i++) {
-            for (int j = 0; j < rows; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                std::cout << "Calculating i = " << i << ", j = " << j << std::endl;
                 transposed_matrix[i][j] = columns[j][i];
             }
         }
 
         transpose = transposed_matrix;
+        std::cout << "transpose calculated" << std::endl;
     }
 
     template <int rows, int cols>
@@ -132,6 +141,7 @@ namespace phys {
 
         // Print each vector of the transposed matrix on their own line (row vectors)
         for (int i = 0; i < num_cols; i++) {
+            std::cout << "printing row " << i << std::endl;
             matrix_transposed[i].print();
             std::cout << std::endl;
         }
